@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import i18next from 'i18next'
 import resources from './locale.js';
 import { rssData } from './rss.js';
-import { renderMainPartOfAgregator } from './render';
+import { renderMainPartOfAgregator, renderFeeds } from './render';
 // import axios from 'axios';
 
 
@@ -24,6 +24,7 @@ export const state = {
     links: [],
     feeds: [],
     posts: [],
+    postsWasRead: [],
     //posts: [{id, feedId, title, link}]
 };
 
@@ -81,10 +82,9 @@ const app = () => {
   // return schema.validate(url)
   //   }
     // console.log(validateUrl())  
-    const watchedObject = onChange(state, (path, value) => {
-        validateUrl(value)
-        
-      })
+    const watchedObject = onChange(state, () => {
+      validateUrl(watchedObject.website)
+    })    
     
     form.addEventListener('submit', (e) => {
     e.preventDefault()

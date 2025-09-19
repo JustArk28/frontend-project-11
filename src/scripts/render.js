@@ -9,6 +9,10 @@ export const renderMainPartOfAgregator = () => {
   label.textContent = i18nInstance.t('label')
   const button = document.querySelector('[type="submit"]')
   button.textContent = i18nInstance.t('button')
+  const modalButtonReadMore = document.querySelector('.full-article')
+  modalButtonReadMore.textContent = i18nInstance.t('modal.openEntire')
+  const modalCloseBotton = document.querySelector('.btn-secondary')
+  modalCloseBotton.textContent = i18nInstance.t('modal.close')
 }
 
 
@@ -47,7 +51,6 @@ export const renderFeeds = (elements, state) => {
   
   // console.log(feedsMainDiv)
 }
-// renderFeeds(elements, state)
 
 export const renderPosts = (elements, state) => {
   elements.postsBlock.innerHTML = ''
@@ -61,27 +64,71 @@ export const renderPosts = (elements, state) => {
   const postsList = document.createElement('ul')
   postsList.classList.add('list-group', 'border-0', 'rounded-0')
   
-  state.posts.forEach(({ title, link }) => {
+  state.posts.forEach(({ id, title, link }) => {
     const postsListItem = document.createElement('li')
     postsListItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0')
   
     const tagA = document.createElement('a')
     tagA.setAttribute('href', link)
-    tagA.classList.add('fw-bold')
+    tagA.setAttribute('target', '_blank')
+    if (state.postsWasRead.length === 0) {
+      tagA.classList.add('fw-bold')
+    }
+      state.postsWasRead.forEach((readPost) => {
+        if (id !== readPost.id) {
+          console.log('post', id)
+          tagA.classList.add('fw-bold')
+        } else {
+          console.log('normal', id)
+          tagA.classList.remove('fw-bold')
+          tagA.classList.add('fw-normal', 'text-secondary')
+        }
+    
+    })
     tagA.textContent = title
+    tagA.addEventListener('click', (e) => {
+      tagA.classList.remove('fw-bold')
+      tagA.classList.add('fw-normal', 'text-secondary')
+          // const activePost = state.posts.find((post) => post.id === e.target.id)
+          // state.postsWasRead.push(activePost)
+      
+    })
   
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
+    button.setAttribute('id', id)
     button.classList.add('btn', 'btn-outline-primary')
     button.setAttribute('data-bs-toggle', 'modal')
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
+    let array = []
     button.addEventListener('click', (e) => {
-      e.preventDefault()
+      // e.preventDefault()
+      const activePost = state.posts.find((post) => post.id === e.target.id)
+      
       const modalTitle = document.querySelector('.modal-title')
+      modalTitle.textContent = activePost.title
       const modalBody = document.querySelector('.modal-body')
-      console.log(modalBody)//делаю общий id у ссылки и у кнопки и при клике на кнопку достаю куда-то id кнопки, далее вытаскиваю по id объект из массива и использую данные объекта
-    })
+      modalBody.textContent = activePost.subtitle
+      const readMore = document.querySelector('.full-article')
+      readMore.setAttribute('href', activePost.link)
+      tagA.classList.remove('fw-bold')
+      tagA.classList.add('fw-normal', 'text-secondary')
+      // state.postsWasRead.forEach((readPost) => {
+      //   if(readPost.id !== activePost.id) {
+        state.postsWasRead.push(activePost)
+      //   }
+      // })
+      // array.filter((readPost) => {
+      //   if(readPost.id !== e.target.id) {
+        // array.push(activePost)
+        // }
+        // })
+
+        
+        // state.postsWasRead = [...array] 
+        console.log('read', state.postsWasRead)
+      })
   
     postsListItem.append(tagA)
     postsListItem.append(button)
