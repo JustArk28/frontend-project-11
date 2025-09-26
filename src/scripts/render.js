@@ -64,34 +64,23 @@ export const renderPosts = (elements, state) => {
   const postsList = document.createElement('ul')
   postsList.classList.add('list-group', 'border-0', 'rounded-0')
   
-  state.posts.forEach(({ id, title, link }) => {
+  state.posts.forEach(({ id, title, link, viewed }) => {
     const postsListItem = document.createElement('li')
     postsListItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0')
   
     const tagA = document.createElement('a')
     tagA.setAttribute('href', link)
     tagA.setAttribute('target', '_blank')
-    if (state.postsWasRead.length === 0) {
-      tagA.classList.add('fw-bold')
-    }
-      state.postsWasRead.forEach((readPost) => {
-        if (id !== readPost.id) {
-          console.log('post', id)
-          tagA.classList.add('fw-bold')
-        } else {
-          console.log('normal', id)
-          tagA.classList.remove('fw-bold')
-          tagA.classList.add('fw-normal', 'text-secondary')
-        }
-    
-    })
+    tagA.className = viewed
+        ? 'fw-normal link-secondary'
+        : 'fw-bold'
     tagA.textContent = title
     tagA.addEventListener('click', (e) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
-          // const activePost = state.posts.find((post) => post.id === e.target.id)
-          // state.postsWasRead.push(activePost)
-      
+      const activePost = state.posts.find((post) => post.link === e.target.href)
+      console.log('link', activePost)
+      activePost.viewed = true      
     })
   
     const button = document.createElement('button')
@@ -101,11 +90,10 @@ export const renderPosts = (elements, state) => {
     button.setAttribute('data-bs-toggle', 'modal')
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
-    let array = []
+    
     button.addEventListener('click', (e) => {
       // e.preventDefault()
       const activePost = state.posts.find((post) => post.id === e.target.id)
-      
       const modalTitle = document.querySelector('.modal-title')
       modalTitle.textContent = activePost.title
       const modalBody = document.querySelector('.modal-body')
@@ -114,29 +102,13 @@ export const renderPosts = (elements, state) => {
       readMore.setAttribute('href', activePost.link)
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
-      // state.postsWasRead.forEach((readPost) => {
-      //   if(readPost.id !== activePost.id) {
-        state.postsWasRead.push(activePost)
-      //   }
-      // })
-      // array.filter((readPost) => {
-      //   if(readPost.id !== e.target.id) {
-        // array.push(activePost)
-        // }
-        // })
-
-        
-        // state.postsWasRead = [...array] 
-        console.log('read', state.postsWasRead)
+      activePost.viewed = true
       })
   
     postsListItem.append(tagA)
     postsListItem.append(button)
-  //событие клик, которое меняет цвет ссылки 
     postsList.append(postsListItem)
   })
- 
-
 
   postsBodyDiv.append(postsTitle)
   postsMainDiv.append(postsBodyDiv, postsList)
