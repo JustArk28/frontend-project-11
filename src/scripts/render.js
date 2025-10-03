@@ -15,6 +15,20 @@ export const renderMainPartOfAgregator = () => {
   modalCloseBotton.textContent = i18nInstance.t('modal.close')
 }
 
+const input = document.getElementById("url-input");
+const feedback = document.querySelector(".feedback");
+
+export const renderErrorFeedback = () => {
+  feedback.classList.remove("text-success");
+  input.classList.add("is-invalid");
+  feedback.classList.add("text-danger");
+}
+
+export const renderSuccessFeedback = () => {
+  feedback.classList.remove("text-danger");
+  feedback.classList.add("text-success");
+  input.classList.remove("is-invalid");
+}
 
 export const elements = {
     feedsBlock: document.querySelector('.feeds'),
