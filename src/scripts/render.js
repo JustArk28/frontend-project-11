@@ -1,4 +1,4 @@
-import { i18nInstance } from "./app"
+import { i18nInstance } from "./i18n.js"
 
 export const renderMainPartOfAgregator = () => {
   const header = document.querySelector('h1')
@@ -86,7 +86,7 @@ export const renderPosts = (elements, state) => {
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
     button.setAttribute('id', id)
-    button.classList.add('btn', 'btn-outline-primary')
+    button.classList.add('btn', 'btn-outline-primary', 'btn-sm')
     button.setAttribute('data-bs-toggle', 'modal')
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
@@ -104,7 +104,8 @@ export const renderPosts = (elements, state) => {
       tagA.classList.add('fw-normal', 'text-secondary')
       activePost.viewed = true
       })
-  
+    
+    
     postsListItem.append(tagA)
     postsListItem.append(button)
     postsList.append(postsListItem)
