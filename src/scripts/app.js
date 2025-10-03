@@ -136,10 +136,10 @@ const app = () => {
                 // console.log(newDom);
               })
               .catch((error) => {
-                // if (error.message === 'Network Error') {
-                //   feedback.textContent = i18nInstance.t("feedback.connectionError");
-                //   renderErrorFeedback()
-                // }
+                if (error.message === 'Network Error') {
+                  feedback.textContent = i18nInstance.t("feedback.connectionError");
+                  renderErrorFeedback()
+                }
                 // handle error
                 console.log(error);
               });
@@ -159,10 +159,10 @@ const app = () => {
         renderFeeds(elements, state);
       })
       .catch((error) => {
-        // if (error.message === 'Network Error') {
-        //   feedback.textContent = i18nInstance.t("feedback.connectionError");
-        //   renderErrorFeedback()
-        // }
+        if (error.message === 'Network Error') {
+          feedback.textContent = i18nInstance.t("feedback.connectionError");
+          renderErrorFeedback()
+        }
         // handle error
         console.log(error);
       });
