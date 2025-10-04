@@ -52,16 +52,16 @@ const app = () => {
   }
 
   const isFeedExists = (feedTitle, feedDescription) => {
-    return state.feeds.some((feed) => {
+    return state.feeds.some((feed) => 
       feed.title === feedTitle && feed.description === feedDescription
-    })
+    )
   }
 
   // Функция для проверки существования поста
   const isPostExists = (postTitle, postLink) => {
-    return state.posts.some((post) => {
+    return state.posts.some((post) => 
       post.title === postTitle && post.link === postLink
-    })
+    )
   }
 
   const rssData = () => {
