@@ -74,10 +74,9 @@ const app = () => {
         const newDom = domParse(response.data.contents)
         const feedId = Date.now()
         const feedTitle = newDom.querySelector('title')?.textContent
-        const feedDescription =
-          newDom.querySelector('description')?.textContent
+        const feedDescription = newDom.querySelector('description')?.textContent
         if (!isFeedExists(feedTitle, feedDescription)) {
-          state.feeds.push({ id: feedId, title: feedTitle, description: feedDescription });
+          state.feeds.push({ id: feedId, title: feedTitle, description: feedDescription })
           renderSuccessFeedback();
           feedback.textContent = i18nInstance.t('feedback.success')
           form.reset()
@@ -145,9 +144,9 @@ const app = () => {
           feedback.textContent = i18nInstance.t('feedback.rssAlreadyAdded')
         }
         // Добавляем только новые посты
-        const newPosts = createPosts(newDom).filter((post) => {
+        const newPosts = createPosts(newDom).filter((post) => 
           !isPostExists(post.title, post.link)
-      })
+      )
         state.posts = [...newPosts, ...state.posts]
         renderPosts(elements, state)
         renderFeeds(elements, state)
