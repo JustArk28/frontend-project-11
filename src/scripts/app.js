@@ -1,4 +1,3 @@
-import onChange from "on-change";
 import * as yup from "yup";
 import { i18nInstance } from "./i18n.js";
 import { setupYup } from "./setupYup.js";
@@ -188,9 +187,6 @@ const app = () => {
     state.website = input.value.trim();
     validateUrl(state.website);
   });
-
-  // const url = 'http://lorem-rss.herokuapp.com/feed';
-  // const url = 'https://eadaily.com/ru/rss/index.xml'
 };
 
 export default app;

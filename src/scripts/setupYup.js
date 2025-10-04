@@ -11,4 +11,3 @@ export const setupYup = (i18nInstance) => {
     },
   });
 }
-
