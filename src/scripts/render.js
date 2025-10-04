@@ -1,4 +1,4 @@
-import { i18nInstance } from "./i18n.js"
+import { i18nInstance } from './i18n.js'
 
 export const renderMainPartOfAgregator = () => {
   const header = document.querySelector('h1')
@@ -15,25 +15,25 @@ export const renderMainPartOfAgregator = () => {
   modalCloseBotton.textContent = i18nInstance.t('modal.close')
 }
 
-const input = document.getElementById("url-input");
-const feedback = document.querySelector(".feedback");
+const input = document.getElementById('url-input')
+const feedback = document.querySelector(".feedback")
 
 export const renderErrorFeedback = () => {
-  feedback.classList.remove("text-success");
-  input.classList.add("is-invalid");
-  feedback.classList.add("text-danger");
+  feedback.classList.remove('text-success')
+  input.classList.add('is-invalid')
+  feedback.classList.add('text-danger')
 }
 
 export const renderSuccessFeedback = () => {
-  feedback.classList.remove("text-danger");
-  feedback.classList.add("text-success");
-  input.classList.remove("is-invalid");
+  feedback.classList.remove('text-danger')
+  feedback.classList.add('text-success')
+  input.classList.remove('is-invalid')
 }
 
 export const elements = {
-    feedsBlock: document.querySelector('.feeds'),
-    postsBlock: document.querySelector('.posts'),
-  }
+  feedsBlock: document.querySelector('.feeds'),
+  postsBlock: document.querySelector('.posts'),
+}
 
 export const renderFeeds = (elements, state) => {
   elements.feedsBlock.innerHTML = ''
@@ -46,7 +46,7 @@ export const renderFeeds = (elements, state) => {
   feedsTitle.textContent = i18nInstance.t('rss.feeds')
   const feedsList = document.createElement('ul')
   feedsList.classList.add('list-group', 'border-0', 'rounded-0')
-  state.feeds.forEach(({title, description}) => {
+  state.feeds.forEach(({ title, description }) => {
     const feedsListItem = document.createElement('li')
     feedsListItem.classList.add('list-group-item', 'border-0', 'border-end-0')
     const feedSubtitle = document.createElement('h3')
@@ -55,15 +55,12 @@ export const renderFeeds = (elements, state) => {
     const feedDescription = document.createElement('p')
     feedDescription.classList.add('m-0', 'small', 'text-black-50')
     feedDescription.textContent = description
-
     feedsListItem.append(feedSubtitle, feedDescription)
     feedsList.prepend(feedsListItem)
   })
   feedsBodyDiv.append(feedsTitle)
   feedsMainDiv.append(feedsBodyDiv, feedsList)
   elements.feedsBlock.append(feedsMainDiv)
-  
-  // console.log(feedsMainDiv)
 }
 
 export const renderPosts = (elements, state) => {
@@ -77,26 +74,23 @@ export const renderPosts = (elements, state) => {
   postsTitle.textContent = i18nInstance.t('rss.posts')
   const postsList = document.createElement('ul')
   postsList.classList.add('list-group', 'border-0', 'rounded-0')
-  
   state.posts.forEach(({ id, title, link, viewed }) => {
     const postsListItem = document.createElement('li')
     postsListItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0')
-  
     const tagA = document.createElement('a')
     tagA.setAttribute('href', link)
     tagA.setAttribute('target', '_blank')
     tagA.className = viewed
-        ? 'fw-normal link-secondary'
-        : 'fw-bold'
+      ? 'fw-normal link-secondary'
+      : 'fw-bold'
     tagA.textContent = title
     tagA.addEventListener('click', (e) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
       const activePost = state.posts.find((post) => post.link === e.target.href)
       console.log('link', activePost)
-      activePost.viewed = true      
+      activePost.viewed = true
     })
-  
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
     button.setAttribute('id', id)
@@ -104,9 +98,7 @@ export const renderPosts = (elements, state) => {
     button.setAttribute('data-bs-toggle', 'modal')
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
-    
     button.addEventListener('click', (e) => {
-      // e.preventDefault()
       const activePost = state.posts.find((post) => post.id === e.target.id)
       const modalTitle = document.querySelector('.modal-title')
       modalTitle.textContent = activePost.title
@@ -117,9 +109,7 @@ export const renderPosts = (elements, state) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
       activePost.viewed = true
-      })
-    
-    
+    })    
     postsListItem.append(tagA)
     postsListItem.append(button)
     postsList.append(postsListItem)

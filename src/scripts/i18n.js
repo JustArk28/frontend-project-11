@@ -1,14 +1,14 @@
-import i18next from "i18next";
-import resources from "./locale.js";
+import i18next from 'i18next'
+import resources from './locale.js'
 
 export const i18nInstance = i18next.createInstance(
   {
-    lng: "ru",
+    lng: 'ru',
     debug: false,
     resources,
   },
   (err, t) => {
-    if (err) return console.log("something went wrong loading", err);
-    t();
-  }
-);
+    if (err) return console.log('something went wrong loading', err)
+    t()
+  },
+)

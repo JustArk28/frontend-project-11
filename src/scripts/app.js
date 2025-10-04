@@ -19,7 +19,7 @@ const app = () => {
     website: '',
     feeds: [],
     posts: [],
-  };
+  }
 
   const form = document.querySelector('form')
   const input = document.getElementById('url-input')
@@ -77,7 +77,7 @@ const app = () => {
         const feedDescription = newDom.querySelector('description')?.textContent
         if (!isFeedExists(feedTitle, feedDescription)) {
           state.feeds.push({ id: feedId, title: feedTitle, description: feedDescription })
-          renderSuccessFeedback();
+          renderSuccessFeedback()
           feedback.textContent = i18nInstance.t('feedback.success')
           form.reset()
           input.focus()
@@ -109,13 +109,10 @@ const app = () => {
                     if (
                       item.textContent.includes(Array.from(newTitle).toString())
                     ) {
-                      const itemTitle =
-                        item.querySelector('title')?.textContent
+                      const itemTitle = item.querySelector('title')?.textContent
                       const itemLink = item.querySelector('link')?.textContent
-                      const itemSubtitle =
-                        item.querySelector('description')?.textContent
-                      const itemId =
-                        item.querySelector('pubDate')?.textContent + num++
+                      const itemSubtitle = item.querySelector('description')?.textContent
+                      const itemId = item.querySelector('pubDate')?.textContent + num++
                       newItems.push({
                         id: itemId,
                         title: itemTitle,
@@ -146,7 +143,7 @@ const app = () => {
         // Добавляем только новые посты
         const newPosts = createPosts(newDom).filter((post) => 
           !isPostExists(post.title, post.link)
-      )
+        )
         state.posts = [...newPosts, ...state.posts]
         renderPosts(elements, state)
         renderFeeds(elements, state)
@@ -163,7 +160,7 @@ const app = () => {
   const invalidUrl = (text) => {
     feedback.textContent = text
     renderErrorFeedback()
-  };
+  }
   const validateUrl = (url) => {
     const schema = yup.string().required().url()
     return schema
@@ -174,7 +171,7 @@ const app = () => {
       })
   }
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault()
 
     state.website = input.value.trim()
