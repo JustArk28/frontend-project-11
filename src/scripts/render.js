@@ -16,7 +16,7 @@ export const renderMainPartOfAgregator = () => {
 }
 
 const input = document.getElementById('url-input')
-const feedback = document.querySelector(".feedback")
+const feedback = document.querySelector('.feedback')
 
 export const renderErrorFeedback = () => {
   feedback.classList.remove('text-success')
@@ -87,8 +87,9 @@ export const renderPosts = (elements, state) => {
     tagA.addEventListener('click', (e) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
-      const activePost = state.posts.find((post) => post.link === e.target.href)
-      console.log('link', activePost)
+      const activePost = state.posts.find((post) => {
+        return post.link === e.target.href
+      })
       activePost.viewed = true
     })
     const button = document.createElement('button')
@@ -99,7 +100,9 @@ export const renderPosts = (elements, state) => {
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
     button.addEventListener('click', (e) => {
-      const activePost = state.posts.find((post) => post.id === e.target.id)
+      const activePost = state.posts.find((post) => {
+        return post.link === e.target.href
+      })
       const modalTitle = document.querySelector('.modal-title')
       modalTitle.textContent = activePost.title
       const modalBody = document.querySelector('.modal-body')
@@ -109,7 +112,7 @@ export const renderPosts = (elements, state) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
       activePost.viewed = true
-    })    
+    })
     postsListItem.append(tagA)
     postsListItem.append(button)
     postsList.append(postsListItem)
