@@ -87,7 +87,7 @@ export const renderPosts = (elements, state) => {
     tagA.addEventListener('click', (e) => {
       tagA.classList.remove('fw-bold')
       tagA.classList.add('fw-normal', 'text-secondary')
-      const activePost = state.posts.find((post) => post.link === e.target.href)
+      const activePost = state.posts.find(post => post.link === e.target.href)
       activePost.viewed = true
     })
     const button = document.createElement('button')
@@ -98,7 +98,7 @@ export const renderPosts = (elements, state) => {
     button.setAttribute('data-bs-target', '#modal')
     button.textContent = i18nInstance.t('rss.linkBtn')
     button.addEventListener('click', (e) => {
-      const activePost = state.posts.find((post) => post.id === e.target.id)
+      const activePost = state.posts.find(post => post.id === e.target.id)
       const modalTitle = document.querySelector('.modal-title')
       modalTitle.textContent = activePost.title
       const modalBody = document.querySelector('.modal-body')
