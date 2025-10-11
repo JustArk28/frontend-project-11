@@ -136,7 +136,7 @@ const app = () => {
             setTimeout(getNewDom, 5000)
           }
           setTimeout(getNewDom, 5000)
-        } 
+        }
         else {
           renderErrorFeedback()
           feedback.textContent = i18nInstance.t('feedback.rssAlreadyAdded')
