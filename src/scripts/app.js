@@ -52,15 +52,15 @@ const app = () => {
   }
 
   const isFeedExists = (feedTitle, feedDescription) => {
-    return state.feeds.some((feed) => 
-      feed.title === feedTitle && feed.description === feedDescription
+    return state.feeds.some((feed) =>
+      feed.title === feedTitle && feed.description === feedDescription,
     )
   }
 
   // Функция для проверки существования поста
   const isPostExists = (postTitle, postLink) => {
-    return state.posts.some((post) => 
-      post.title === postTitle && post.link === postLink
+    return state.posts.some((post) =>
+      post.title === postTitle && post.link === postLink,
     )
   }
 
@@ -100,7 +100,7 @@ const app = () => {
                 const stateItems = new Set([...result])
 
                 const newTitle = new Set(
-                  [...newItems].filter((title) => !stateItems.has(title))
+                  [...newItems].filter((title) => !stateItems.has(title)),
                 )
                 if (Array.from(newTitle).length > 0) {
                   const newPostItems1 = newDom.querySelectorAll('item')
@@ -136,13 +136,14 @@ const app = () => {
             setTimeout(getNewDom, 5000)
           }
           setTimeout(getNewDom, 5000)
-        } else {
+        } 
+        else {
           renderErrorFeedback()
           feedback.textContent = i18nInstance.t('feedback.rssAlreadyAdded')
         }
         // Добавляем только новые посты
-        const newPosts = createPosts(newDom).filter((post) => 
-          !isPostExists(post.title, post.link)
+        const newPosts = createPosts(newDom).filter((post) =>
+          !isPostExists(post.title, post.link),
         )
         state.posts = [...newPosts, ...state.posts]
         renderPosts(elements, state)
